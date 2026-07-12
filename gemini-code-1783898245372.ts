@@ -1,0 +1,537 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+// =========================================================================
+// TYPES & INTERFACES
+// =========================================================================
+interface AccordionProps {
+  title: string;
+  content: string;
+}
+
+interface HeroProps {
+  onCtaClick: () => void;
+}
+
+// =========================================================================
+// UI COMPONENTS
+// =========================================================================
+function Accordion({ title, content }: AccordionProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div class="border-b border-neutral-200 py-3">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        class="w-full flex justify-between items-center text-left py-2 focus:outline-none"
+      >
+        <span class="text-sm font-medium text-neutral-900 tracking-tight">{title}</span>
+        <span class="text-xs text-neutral-400 font-mono ml-4">{isOpen ? "–" : "+"}</span>
+      </button>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            class="overflow-hidden"
+          >
+            <p class="text-xs text-neutral-500 font-light leading-relaxed pt-2 pb-4 pr-6">
+              {content}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+// =========================================================================
+// LANDING SECTIONS
+// =========================================================================
+function Hero({ onCtaClick }: HeroProps) {
+  return (
+    <section class="relative min-h-screen flex flex-col justify-center items-center px-6 pt-32 pb-20 max-w-7xl mx-auto text-center z-10">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        class="inline-flex items-center gap-2 px-3 py-1 bg-neutral-100 border border-neutral-200 text-xs text-neutral-800 tracking-tight mb-8"
+      >
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
+        Sistemas de Adquisición de Autor para Estética Dental Premium
+      </motion.div>
+
+      <motion.h1
+        initial={{ opacity: 0, y: 25 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        class="text-4xl sm:text-6xl lg:text-7xl font-semibold tracking-tight text-neutral-900 max-w-5xl leading-[1.05] mb-8"
+      >
+        Deja de perder pacientes de alto valor mientras respondes mensajes de curiosos.
+      </motion.h1>
+
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        class="text-base sm:text-lg text-neutral-500 max-w-2xl font-normal leading-relaxed mb-12"
+      >
+        No implementamos anuncios masivos ni marketing tradicional. Construimos infraestructura automatizada de filtrado e ingeniería de conversión para clínicas dentales enfocadas en tratamientos de alta gama.
+      </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        class="mb-20"
+      >
+        <button
+          onClick={onCtaClick}
+          class="bg-blue-600 text-white text-sm font-medium px-8 py-4 transition-all duration-300 hover:bg-blue-700 active:scale-[0.98] shadow-sm tracking-tight"
+        >
+          Solicitar Diagnóstico Estratégico
+        </button>
+      </motion.div>
+
+      {/* Contenedor de la Imagen Principal del Hero */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        class="w-full max-w-5xl aspect-[16/9] bg-neutral-50 border border-neutral-200/80 rounded-sm overflow-hidden p-3 relative shadow-sm"
+      >
+        <div class="w-full h-full bg-white border border-neutral-200 relative overflow-hidden">
+          <img 
+            src="/assets/images/hero-system-dashboard.webp" 
+            alt="Infraestructura y Dashboard de Adquisición Calificada - Alfonso Villanueva" 
+            class="w-full h-full object-cover filter contrast-[1.01] brightness-[0.99]"
+            loading="eager"
+          />
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
+function CostOfInaction() {
+  const frictionPoints = [
+    { id: "01", title: "Saturación de mensajes genéricos", desc: "La bandeja de entrada colapsa con usuarios preguntando '¿Precio?' o '¿Dónde están ubicados?', absorbiendo horas valiosas de tu personal operativo." },
+    { id: "02", title: "Fuga de pacientes de alto valor", desc: "Mientras tu recepcionista responde un mensaje automatizado sobre limpiezas, el paciente dispuesto a invertir en carillas de porcelana se cansa de esperar y agenda con tu competencia." },
+    { id: "03", title: "Ausentismo sin penalización", desc: "Citas agendadas de forma manual que no asisten debido a la ausencia de un flujo de confirmación automatizado, destruyendo la rentabilidad de la hora-sillón." },
+    { id: "04", title: "Dependencia de promociones", desc: "El ecosistema tradicional de agencias abarata la reputación de tu clínica ofreciendo limpiezas gratis en lugar de posicionar el valor estético real." }
+  ];
+
+  return (
+    <section class="py-32 px-6 max-w-7xl mx-auto border-t border-neutral-100">
+      <div class="grid lg:grid-cols-12 gap-16">
+        <div class="lg:col-span-5 space-y-4">
+          <span class="text-xs font-semibold text-neutral-400 uppercase tracking-widest">El Diagnóstico Operativo</span>
+          <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900 leading-tight">
+            Tu problema real no es la falta de prospectos. Es el volumen de tráfico basura.
+          </h2>
+          <p class="text-sm text-neutral-500 font-light leading-relaxed max-w-md">
+            Cada minuto que tu equipo dedica a responder solicitudes informales de personas que buscan consultas económicas, es un minuto donde se ignora a tu próximo paciente de rehabilitación estética completa.
+          </p>
+        </div>
+        
+        <div class="lg:col-span-7 grid sm:grid-cols-2 gap-8">
+          {frictionPoints.map((point) => (
+            <motion.div
+              key={point.id}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5 }}
+              class="p-6 bg-neutral-50/50 border border-neutral-200/60 flex flex-col justify-between"
+            >
+              <div>
+                <span class="font-mono text-xs text-blue-600 font-bold block mb-4">{point.id}</span>
+                <h3 class="text-base font-semibold text-neutral-900 mb-2">{point.title}</h3>
+                <p class="text-xs text-neutral-500 font-light leading-relaxed">{point.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SystemFlow() {
+  const flowSteps = [
+    { step: "01", name: "Captación de Alta Intención", platform: "Google / IG / FB Meta" },
+    { step: "02", name: "Landing Page de Autor", platform: "Infraestructura sin fricción" },
+    { step: "03", name: "Filtro Inteligente Automático", platform: "Cuestionario de Cualificación" },
+    { step: "04", name: "Agenda de Citas Autónoma", platform: "Sincronización en tiempo real" },
+    { step: "05", name: "Confirmación por WhatsApp", platform: "Recordatorios de alta conversión" },
+    { step: "06", name: "Paciente Calificado en Clínica", platform: "Consulta de Alto Valor" }
+  ];
+
+  return (
+    <section class="py-32 px-6 bg-neutral-50 border-t border-b border-neutral-100">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-20 space-y-3">
+          <span class="text-xs font-semibold text-blue-600 uppercase tracking-widest">La Ingeniería del Flujo</span>
+          <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900">
+            Un embudo predictivo optimizado de inicio a fin.
+          </h2>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-6 gap-4 relative">
+          {flowSteps.map((node, idx) => (
+            <motion.div
+              key={node.step}
+              initial={{ opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: idx * 0.05 }}
+              class="bg-white border border-neutral-200 p-5 flex flex-col justify-between relative group hover:border-neutral-400 transition-colors duration-300"
+            >
+              <div>
+                <span class="text-[10px] font-mono text-neutral-400 block mb-6">NODO_{node.step}</span>
+                <h3 class="text-sm font-semibold text-neutral-900 mb-1 tracking-tight">{node.name}</h3>
+              </div>
+              <span class="text-[11px] text-neutral-400 font-light block mt-4">{node.platform}</span>
+              
+              {idx < 5 && (
+                <div class="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-20 text-neutral-300 pointer-events-none font-mono text-xs">
+                  →
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AutomationCards() {
+  const capabilities = [
+    "Cualificación automatizada de presupuestos antes de agendar.",
+    "Sincronización instantánea con Google Calendar bidireccional.",
+    "Filtro inteligente para descartar solicitudes de limpiezas y caries simples.",
+    "Respuestas instantáneas 24/7 a preguntas frecuentes operativas (Ubicación, Horarios).",
+    "Secuencia hiper-personalizada de recordatorios vía WhatsApp.",
+    "Alertas push en tiempo real para el asistente asignado de la clínica."
+  ];
+
+  return (
+    <section class="py-32 px-6 max-w-7xl mx-auto">
+      <div class="max-w-3xl mb-16 space-y-4">
+        <span class="text-xs font-semibold text-neutral-400 uppercase tracking-widest">Automatización Avanzada</span>
+        <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900">
+          Infraestructura autónoma instalada en los canales de tu clínica.
+        </h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {capabilities.map((text, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: i * 0.05 }}
+            class="p-6 border border-neutral-200/80 bg-white shadow-xs flex items-start gap-3"
+          >
+            <span class="text-blue-600 font-medium text-sm mt-0.5">✓</span>
+            <p class="text-xs text-neutral-600 font-light leading-relaxed">{text}</p>
+          </motion.div>
+        ))}
+      </div>
+
+      <div class="p-4 bg-blue-50/50 border border-blue-100 max-w-3xl">
+        <p class="text-xs text-blue-900 font-normal leading-relaxed">
+          <strong class="font-semibold">Nota de arquitectura ética:</strong> El sistema de inteligencia y automatización está programado de forma restrictiva. <span class="underline decoration-blue-300">Bajo ninguna circunstancia emite opiniones o diagnósticos de carácter médico</span>; su función única es logística, operativa y de cualificación comercial.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function Comparison() {
+  return (
+    <section class="py-32 px-6 bg-neutral-950 text-white overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center max-w-xl mx-auto mb-20 space-y-3">
+          <span class="text-xs font-mono text-blue-500 tracking-widest uppercase">Estandarización de Procesos</span>
+          <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-white">
+            El contraste es matemático.
+          </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+          <div class="p-8 bg-neutral-900/50 border border-neutral-800 space-y-6">
+            <h3 class="text-lg font-medium text-neutral-400 border-b border-neutral-800 pb-3 uppercase tracking-wider text-xs">
+              La Dinámica Tradicional de Agencia
+            </h3>
+            <ul class="space-y-4 text-xs font-light text-neutral-400 leading-relaxed">
+              <li class="flex items-start gap-3">
+                <span class="text-neutral-600 font-mono">✕</span>
+                Inversión masiva en campañas enfocadas en volumen total de leads.
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-neutral-600 font-mono">✕</span>
+                Tu recepcionista pasa el 80% del día respondiendo mensajes vacíos en Instagram.
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-neutral-600 font-mono">✕</span>
+                Seguimiento inconsistente condicionado por el cansancio humano diario.
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-neutral-600 font-mono">✕</span>
+                Métricas de vanidad: 'Cientos de clicks' con cero rentabilidad en cirugías de alta gama.
+              </li>
+            </ul>
+          </div>
+
+          <div class="p-8 bg-neutral-900 border border-blue-600/50 space-y-6 relative">
+            <div class="absolute top-0 right-8 transform -translate-y-1/2 bg-blue-600 text-white font-mono text-[9px] px-2 py-0.5 font-bold tracking-tight">
+              SISTEMA INTEGRAL
+            </div>
+            <h3 class="text-lg font-medium text-white border-b border-neutral-800 pb-3 uppercase tracking-wider text-xs">
+              Infraestructura Bajo Demanda
+            </h3>
+            <ul class="space-y-4 text-xs font-light text-neutral-300 leading-relaxed">
+              <li class="flex items-start gap-3">
+                <span class="text-blue-500 font-semibold">✓</span>
+                Segmentación quirúrgica con foco exclusivo en Estética y Alta Gama.
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-blue-500 font-semibold">✓</span>
+                Filtrado de presupuesto en tiempo real antes de conceder espacio en agenda.
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-blue-500 font-semibold">✓</span>
+                Confirmación y recordatorios autónomos via API directa.
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-blue-500 font-semibold">✓</span>
+                Tu equipo humano solo atiende llamadas con personas validadas e interesadas.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Benefits() {
+  const outcomes = [
+    { title: "Optimización del Costo/Hora Sillón", desc: "Alineamos la agenda para asegurar que los bloques horarios estén ocupados por tratamientos de alto valor." },
+    { title: "Liberación de Carga Operativa", desc: "El personal de tu recepción se enfoca en brindar una experiencia de lujo a los pacientes presentes en la clínica." },
+    { title: "Predecibilidad de Ingresos", desc: "Transformamos la captación de pacientes en un proceso basado en datos medibles y estables." }
+  ];
+
+  return (
+    <section class="py-32 px-6 max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-3 gap-12">
+        {outcomes.map((item, index) => (
+          <div key={index} class="space-y-3 border-l border-neutral-200 pl-6">
+            <h3 class="text-lg font-semibold text-neutral-900 tracking-tight">{item.title}</h3>
+            <p class="text-xs text-neutral-500 font-light leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function AboutAlfonso() {
+  return (
+    <section class="py-32 px-6 bg-neutral-50 border-t border-b border-neutral-100">
+      <div class="max-w-4xl mx-auto grid md:grid-cols-12 gap-12 items-center">
+        <div class="md:col-span-4 space-y-2">
+          <span class="text-[10px] font-mono text-neutral-400 block">SISTEMAS DE AUTOR</span>
+          <h2 class="text-2xl font-semibold text-neutral-900 tracking-tight">Alfonso Villanueva</h2>
+          <div class="h-0.5 w-12 bg-blue-600" />
+        </div>
+        
+        <div class="md:col-span-8 text-neutral-600 text-xs sm:text-sm font-light space-y-6 leading-relaxed">
+          <p>
+            Aprendí a diseñar sistemas de eficiencia en la economía real, donde un error logístico cuesta dinero de forma inmediata. Desde la coordinación operativa en la compra y venta de limón, pasando por la gestión de maquinaria pesada y la conducción de camiones tortón. En esos entornos, si el flujo de trabajo no es exacto, los márgenes desaparecen.
+          </p>
+          <p>
+            Esa obsesión por la precisión operativa me llevó de forma natural al desarrollo web y la arquitectura de software. Descubrí que las agencias tradicionales de marketing digital suelen entregar clics y leads de baja calidad, delegando toda la carga del filtrado al personal de recepción de la clínica.
+          </p>
+          <p>
+            Hoy aplico esa misma mentalidad sistémica para explicar e instalar la adquisición automatizada de clínicas de estética dental premium. No vendo ideas creativas ni conceptos abstractos; instalo sistemas que funcionan de manera predecible.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Qualification() {
+  return (
+    <section class="py-32 px-6 max-w-7xl mx-auto">
+      <div class="text-center max-w-xl mx-auto mb-20 space-y-3">
+        <span class="text-xs font-semibold text-neutral-400 uppercase tracking-widest">Matriz de Cualificación</span>
+        <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900">¿Es este sistema adecuado para tu clínica?</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div class="p-8 border border-neutral-200 bg-white">
+          <h3 class="text-xs font-mono text-blue-600 uppercase font-bold mb-6 tracking-wider">Esta tecnología es para ti si:</h3>
+          <ul class="space-y-4 text-xs font-light text-neutral-600">
+            <li class="flex items-start gap-2">
+              <span class="text-blue-600 font-bold">✓</span>
+              Tu enfoque principal de negocio está en tratamientos de alto valor (Diseño de sonrisa, carillas de porcelana, ortodoncia avanzada).
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue-600 font-bold">✓</span>
+              Cuentas con la infraestructura necesaria para dar un seguimiento inmediato a prospectos altamente interesados.
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue-600 font-bold">✓</span>
+              Buscas estandarizar tus procesos de adquisición a través de la tecnología en lugar de depender únicamente de recomendaciones boca a boca.
+            </li>
+          </ul>
+        </div>
+
+        <div class="p-8 border border-neutral-200 bg-neutral-50/50">
+          <h3 class="text-xs font-mono text-neutral-400 uppercase font-bold mb-6 tracking-wider">No es para ti si:</h3>
+          <ul class="space-y-4 text-xs font-light text-neutral-500">
+            <li class="flex items-start gap-2">
+              <span class="text-neutral-400 font-bold">✕</span>
+              Tu modelo operativo depende de captar un alto volumen de limpiezas o resinas de bajo margen.
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-neutral-400 font-bold">✕</span>
+              Buscas una agencia tradicional que únicamente te envíe volumen de mensajes sin importar su nivel de cualificación.
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-neutral-400 font-bold">✕</span>
+              No estás dispuesto a integrar nuevas herramientas digitales en los flujos diarios de tu equipo.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProcessTimeline() {
+  const steps = [
+    { phase: "01", name: "Videollamada de Diagnóstico", timing: "Sesión inicial de 30 mins" },
+    { phase: "02", name: "Auditoría de Embudo", timing: "Análisis de canales activos" },
+    { phase: "03", name: "Despliegue Tecnológico", timing: "Integración de flujos y API" },
+    { phase: "04", name: "Sistema Operativo", timing: "Automatización activa en producción" }
+  ];
+
+  return (
+    <section class="py-32 px-6 bg-neutral-50 border-t border-b border-neutral-100">
+      <div class="max-w-7xl mx-auto">
+        <div class="max-w-2xl mb-20 space-y-3">
+          <span class="text-xs font-semibold text-neutral-400 uppercase tracking-widest">Protocolo de Integración</span>
+          <h2 class="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900">De la llamada inicial a la automatización activa.</h2>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+          {steps.map((item, index) => (
+            <div key={index} class="relative space-y-4">
+              <div class="flex items-center gap-4">
+                <span class="text-xs font-mono text-blue-600 font-bold bg-white border border-neutral-200 px-2 py-1 shadow-2xs">
+                  FASE_{item.phase}
+                </span>
+                {index < 3 && <div class="hidden lg:block flex-1 h-px bg-neutral-200" />}
+              </div>
+              <h3 class="text-sm font-semibold text-neutral-900 tracking-tight">{item.name}</h3>
+              <p class="text-[11px] text-neutral-400 font-mono">{item.timing}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FAQ() {
+  const faqs = [
+    { q: "¿En qué se diferencia esto de los anuncios que ya he probado?", a: "Las agencias tradicionales configuran campañas para maximizar el volumen de mensajes recibidos. Nuestro sistema se enfoca en el filtrado preventivo: instalamos un embudo automatizado intermedio que pre-cualifica al usuario por nivel de presupuesto e interés real antes de permitirle agendar." },
+    { q: "Mi asistente ya responde los mensajes, ¿por qué automatizarlo?", a: "Porque el tiempo de respuesta óptimo en internet es de menos de 5 minutos. Si tu asistente está atendiendo a un paciente en la recepción o procesando un cobro, no puede responder al instante. El sistema asegura atención inmediata 24/7 sin descuidar el trato presencial." },
+    { q: "¿La automatización responde dudas de carácter médico?", a: "No. El sistema está programado para resolver únicamente dudas logísticas y operativas (precios estimados de entrada, agendas, horarios, ubicación). Cualquier consulta clínica es derivada directamente al especialista en la clínica." },
+    { q: "¿Cuánto tiempo toma el proceso completo de implementación?", a: "Una vez completado el diagnóstico estratégico y validado el acceso a los canales, la infraestructura queda totalmente instalada y en producción en un período estimado de 14 días hábiles." }
+  ];
+
+  return (
+    <section class="py-32 px-6 max-w-3xl mx-auto">
+      <div class="text-center mb-16 space-y-3">
+        <span class="text-xs font-semibold text-neutral-400 uppercase tracking-widest">Resolución de Dudas</span>
+        <h2 class="text-3xl font-semibold tracking-tight text-neutral-900">Preguntas Frecuentes</h2>
+      </div>
+
+      <div class="space-y-2">
+        {faqs.map((faq, index) => (
+          <Accordion key={index} title={faq.q} content={faq.a} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function FinalCTA() {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
+  return (
+    <section id="diagnostico-estrategico" class="py-32 px-6 border-t border-neutral-100 bg-neutral-50/50">
+      <div class="max-w-5xl mx-auto text-center space-y-12">
+        <div class="max-w-2xl mx-auto space-y-4">
+          <h2 class="text-3xl sm:text-5xl font-semibold tracking-tight text-neutral-900 leading-tight">
+            ¿Cuántos pacientes realmente interesados está perdiendo tu clínica cada semana?
+          </h2>
+          <p class="text-sm sm:text-base text-neutral-500 font-light leading-relaxed">
+            Agenda una sesión de diagnóstico estratégico de 30 minutos sin costo para analizar los canales operativos de tu clínica y determinar si califica para la implementación del sistema.
+          </p>
+        </div>
+
+        <div class="w-full bg-white border border-neutral-200 min-h-[650px] shadow-xs">
+          <div 
+            class="calendly-inline-widget w-full h-[650px]" 
+            data-url="https://calendly.com/TU_USUARIO/30min?hide_landing_page_details=1&hide_gdpr_banner=1"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// =========================================================================
+// MAIN ORCHESTRATOR
+// =========================================================================
+export default function Home() {
+  const scrollToCalendly = () => {
+    const element = document.getElementById("diagnostico-estrategico");
+    if (element) element.scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <main class="relative min-h-screen overflow-hidden bg-white">
+      <div class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:32px_32px] opacity-40 pointer-events-none" />
+      
+      <Hero onCtaClick={scrollToCalendly} />
+      <CostOfInaction />
+      <SystemFlow />
+      <AutomationCards />
+      <Comparison />
+      <Benefits />
+      <AboutAlfonso />
+      <Qualification />
+      <ProcessTimeline />
+      <FAQ />
+      <FinalCTA />
+    </main>
+  );
+}
